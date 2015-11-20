@@ -1,0 +1,22 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^/]+)/$ $1.php 
+
+# Dashboard
+RewriteRule ^dashboard/change/user/(.*)$ dashboard.php?page=change&user=$1 [L,NC]
+RewriteRule ^dashboard/edit/(.*)$ dashboard.php?page=edit&id=$1 [L,NC]
+RewriteRule ^dashboard/(.*)/(.*)/ dashboard.php?page=$1&tab=$2 [L,NC]
+RewriteRule ^dashboard/(.*)/$ dashboard.php?page=$1 [L,NC]
+
+# Desktop
+RewriteRule ^desktop/(.*)/ desktop.php?page=$1 [L,NC]
+
+# Forces a trailing slash to be added
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+RewriteRule (.*)$ /$1/ [R=301,L]
